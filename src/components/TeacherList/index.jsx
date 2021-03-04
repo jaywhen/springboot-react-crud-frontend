@@ -4,7 +4,7 @@ import axios from "axios";
 import "./teacher-list.css";
 import TeacherForm from '../TeacherForm';
 
-const {Search} = Input;
+const Search = Input.Search;
 
 export default function TeacherList() {
     // utils
@@ -29,11 +29,6 @@ export default function TeacherList() {
     const [updVal, setUpdVal] = useState([])
     const [isAddModalVisible, setIsAddModalVisible] = useState(false)
     const [isUpdModalVisible, setIsUpdModalVisible] = useState(false)
-
-
-    // const handleCancel = () => {
-    //     setIsAddModalVisible(false)
-    // }
 
     // index data
     useEffect(() => {
@@ -147,21 +142,6 @@ export default function TeacherList() {
                 ) : null
         }
     ]
-    
-    // 从子组件中获取 values
-    // const putData = (values) => {
-    //     // 从子组件中获取 values 但直接加入list 未添加 id 故出bug
-    //     axios.post('http://localhost:8080/teacher/save/', values)
-    //          .then((rsp) => {
-    //             console.log(rsp.data)
-    //             let tmpData = [...dataSource];
-    //             tmpData.push(rsp.data);
-    //             setDataSource(tmpData)
-    //          })
-    //          .catch((error) => {
-    //             console.log(error)
-    //          })
-    // }
 
     const onAddSubmit = () => {
         setIsAddModalVisible(false)
@@ -170,8 +150,6 @@ export default function TeacherList() {
     const onUpdSubmit = () => {
         setIsUpdModalVisible(false)
     }
-
-
 
     return (
         <div className="teacher-list">
@@ -182,7 +160,13 @@ export default function TeacherList() {
                     >
                     Add a row
                 </Button>
-                <Search style={{ marginLeft: 30 }} placeholder="input search text" onSearch={onSearch} enterButton />
+                <Search 
+                    style={{ marginLeft: 30 }} 
+                    placeholder="input search text" 
+                    onSearch={onSearch} 
+                    enterButton
+                    
+                     />
             </div>
             
             <Modal 
