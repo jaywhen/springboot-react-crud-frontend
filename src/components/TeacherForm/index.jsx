@@ -2,6 +2,7 @@ import React from 'react'
 import { Form, Input, Cascader, Button } from "antd";
 const FormItem = Form.Item;
 
+
 export default function TeacherForm(props) {
     const genderOps = [
         {
@@ -16,12 +17,16 @@ export default function TeacherForm(props) {
 
     const departmentOps = [
         {
-            label: "计算机与信息科学学院(智能科学学院)",
-            value: "计算机与信息科学学院(智能科学学院)",
+            label: "计算机与信息科学学院",
+            value: "计算机与信息科学学院",
         },
         {
             label: "数学科学学院",
             value: "数学科学学院",
+        },
+        {
+            label: "某国家一流专业",
+            value: "某国家一流专业",
         },
         {
             label: "马克思主义学院",
@@ -30,21 +35,32 @@ export default function TeacherForm(props) {
     ]
 
     const onFinish = (values) => {
-        let avatar = "http://images.nowcoder.com/head/"+ Math.floor(Math.random() * 101) + "m.png";
-        let data = {
-            "name": values.name,
-            "tel": values.tel,
-            "department": values.department[0],
-            "gender": values.gender[0],
-            "avatar": avatar,
+        let data = values;
+        data["id"] = props.values.id;
+        data["avatar"] = props.values.avatar;
+        data["department"] = values.department[0];
+        data["gender"] = values.gender[0];
+
+        // 如果没有表单数据传过来 => add
+        if(!props.values) {
+            let avatar = "http://images.nowcoder.com/head/"+ Math.floor(Math.random() * 101) + "m.png";
+            data["avatar"] = avatar;
+            props.handleAdd(data);
+        } else {
+            // 有表单数据传来 => update
+            // 将数据返回给父组件
+            props.handleUpd(data);
         }
-        props.putData(data)
     }
 
     return (
         <div>
-            <Form style={{ width: 300 }} onFinish={ onFinish }>
+            <Form
+                initialValues={props.values} 
+                style={{ width: 300 }} 
+                onFinish={ onFinish }>
                 <FormItem
+                    className="name"
                     label="Name"
                     name="name"
                     rules={[{ required: true, message: 'Please input your name!' }]}
@@ -52,6 +68,7 @@ export default function TeacherForm(props) {
                     <Input placeholder="name" />
                 </FormItem>
                 <FormItem
+                    className="tel"
                     label="Tel"
                     name="tel"
                     rules={[{ required: true, message: 'Please input your Tel!' }]}
@@ -59,6 +76,7 @@ export default function TeacherForm(props) {
                     <Input placeholder="Tel" />
                 </FormItem>
                 <FormItem
+                    className="department"
                     label="Department"
                     name="department"
                     rules={[{ required: true, message: 'Please choose your department!' }]}
@@ -66,6 +84,7 @@ export default function TeacherForm(props) {
                     <Cascader options={departmentOps} />
                 </FormItem>
                 <FormItem
+                    className="gender"
                     label="Gender"
                     name="gender"
                     rules={[{ required: true, message: 'Please choose your gender!' }]}

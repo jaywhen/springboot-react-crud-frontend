@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Button, Avatar, Popconfirm, Modal } from "antd";
+import { Table, Button, Avatar, Popconfirm, Modal, Input } from "antd";
 import axios from "axios";
 import "./teacher-list.css";
 import TeacherForm from '../TeacherForm';
+
+const {Search} = Input;
 
 export default function TeacherList() {
     // utils
@@ -12,13 +14,38 @@ export default function TeacherList() {
         }
     }
 
-    // define dataSource
-    const [dataSource, setDataSource] = useState([])
-    const [isModalVisible, setIsModalVisible] = useState(false)
-
-    const handleCancel = () => {
-        setIsModalVisible(false)
+    const updArrayByItem = (arr, item) => {
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i].id == item.id) {
+                console.log("修改了");
+                arr[i] = item;
+            }
+        }
+        return arr;
     }
+
+    // define dataSource && some states
+    const [dataSource, setDataSource] = useState([])
+    const [updVal, setUpdVal] = useState([])
+    const [isAddModalVisible, setIsAddModalVisible] = useState(false)
+    const [isUpdModalVisible, setIsUpdModalVisible] = useState(false)
+
+
+    // const handleCancel = () => {
+    //     setIsAddModalVisible(false)
+    // }
+
+    // index data
+    useEffect(() => {
+        axios.get('http://localhost:8080/teacher/findAll')
+             .then((rsp) => {
+                 setDataSource(rsp.data);
+             })
+             .catch((error) => {
+                 console.log(error)
+             })
+    }, [])
+
 
     // CRUD -> D
     const handleDelete = (index) => {
@@ -36,8 +63,43 @@ export default function TeacherList() {
     }
 
     // CRUD -> C
-    const handleAdd = () => {
-        setIsModalVisible(true)
+    const handleAdd = (value) => {
+        axios.post('http://localhost:8080/teacher/save/', value)
+             .then((rsp) => {
+                console.log(rsp.data)
+                let tmpData = [...dataSource];
+                tmpData.push(rsp.data);
+                setDataSource(tmpData)
+             })
+             .catch((error) => {
+                console.log(error)
+             })
+    }
+
+    // CRUD -> U
+    const handleUpd = (value) => {
+        axios.put('http://localhost:8080/teacher/update/', value)
+             .then((rsp) => {
+                 // 替换原来 dataSource 中的item
+                 let tmpData = updArrayByItem([...dataSource], value);
+                 console.log(tmpData)
+                 setDataSource(tmpData);
+             })
+             .catch((error) => {
+                 console.log(error)
+             })
+    }
+
+    const onUpdClick = (index) => {
+        // 处理特殊数据
+        index.department = [index.department]
+        setIsUpdModalVisible(true)
+        setUpdVal(index)
+    }
+
+    // CRUD -> D
+    const onSearch = () => {
+
     }
 
     // table header
@@ -76,56 +138,66 @@ export default function TeacherList() {
             key: 'operation',
             render: (_,index) => 
                 dataSource.length >= 1 ? (
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(index)}>
-                        <Button danger>Delete</Button>
-                    </Popconfirm>
+                    <div className="del-update-container">
+                        <Button size="small" type="primary" onClick={() => onUpdClick(index)}>Update</Button>
+                        <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(index)}>
+                            <Button style={{ marginLeft: 5 }} size="small" danger type="primary">Delete</Button>
+                        </Popconfirm>
+                    </div>
                 ) : null
         }
     ]
     
-
     // 从子组件中获取 values
-    const putData = (values) => {
-        // 从子组件中获取 values 但直接加入list 未添加 id 故出bug
-        console.log(values)
-        axios.post('http://localhost:8080/teacher/save/', values)
-             .then((rsp) => {
-                console.log(rsp.data)
-                let tmpData = [...dataSource];
-                tmpData.push(rsp.data);
-                setDataSource(tmpData)
-             })
-             .catch((error) => {
-                console.log(error)
-             })
-    }
+    // const putData = (values) => {
+    //     // 从子组件中获取 values 但直接加入list 未添加 id 故出bug
+    //     axios.post('http://localhost:8080/teacher/save/', values)
+    //          .then((rsp) => {
+    //             console.log(rsp.data)
+    //             let tmpData = [...dataSource];
+    //             tmpData.push(rsp.data);
+    //             setDataSource(tmpData)
+    //          })
+    //          .catch((error) => {
+    //             console.log(error)
+    //          })
+    // }
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/teacher/findAll')
-             .then((rsp) => {
-                 setDataSource(rsp.data);
-             })
-             .catch((error) => {
-                 console.log(error)
-             })
-    }, [])
+
     return (
         <div className="teacher-list">
-            <Button
-                type="primary"
-                onClick={() => handleAdd()}
-                >
-                Add a row
-            </Button>
+            <div className="add-search-container">
+                <Button
+                    type="primary"
+                    onClick={() => setIsAddModalVisible(true)}
+                    >
+                    Add a row
+                </Button>
+                <Search style={{ marginLeft: 30 }} placeholder="input search text" onSearch={onSearch} enterButton />
+            </div>
+            
             <Modal 
+                destroyOnClose={true}
                 width={350} 
                 title="Add a teacher" 
-                visible={isModalVisible} 
+                visible={isAddModalVisible} 
                 footer={[]}
-                onCancel={handleCancel}
+                onCancel={() => setIsAddModalVisible(false)}
             >
-                <TeacherForm putData={putData} />
+                <TeacherForm handleAdd={handleAdd} />
             </Modal>
+
+            <Modal 
+                destroyOnClose={true}
+                width={350} 
+                title="Update a teacher" 
+                visible={isUpdModalVisible} 
+                footer={[]}
+                onCancel={() => setIsUpdModalVisible(false)}
+            >
+                <TeacherForm handleUpd={handleUpd} values={updVal} />
+            </Modal>
+
             <Table
                 columns={columns}
                 rowKey={(record) => {
