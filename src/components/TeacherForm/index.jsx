@@ -36,20 +36,21 @@ export default function TeacherForm(props) {
 
     const onFinish = (values) => {
         let data = values;
-        data["id"] = props.values.id;
-        data["avatar"] = props.values.avatar;
         data["department"] = values.department[0];
         data["gender"] = values.gender[0];
-
         // 如果没有表单数据传过来 => add
         if(!props.values) {
             let avatar = "http://images.nowcoder.com/head/"+ Math.floor(Math.random() * 101) + "m.png";
             data["avatar"] = avatar;
             props.handleAdd(data);
+            props.onAddSubmit();
         } else {
             // 有表单数据传来 => update
             // 将数据返回给父组件
+            data["id"] = props.values.id;
+            data["avatar"] = props.values.avatar;
             props.handleUpd(data);
+            props.onUpdSubmit();
         }
     }
 

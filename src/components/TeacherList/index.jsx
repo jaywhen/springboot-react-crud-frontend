@@ -163,6 +163,15 @@ export default function TeacherList() {
     //          })
     // }
 
+    const onAddSubmit = () => {
+        setIsAddModalVisible(false)
+    }
+
+    const onUpdSubmit = () => {
+        setIsUpdModalVisible(false)
+    }
+
+
 
     return (
         <div className="teacher-list">
@@ -184,7 +193,7 @@ export default function TeacherList() {
                 footer={[]}
                 onCancel={() => setIsAddModalVisible(false)}
             >
-                <TeacherForm handleAdd={handleAdd} />
+                <TeacherForm handleAdd={handleAdd} onAddSubmit={onAddSubmit} />
             </Modal>
 
             <Modal 
@@ -195,7 +204,7 @@ export default function TeacherList() {
                 footer={[]}
                 onCancel={() => setIsUpdModalVisible(false)}
             >
-                <TeacherForm handleUpd={handleUpd} values={updVal} />
+                <TeacherForm handleUpd={handleUpd} values={updVal} onUpdSubmit={onUpdSubmit} />
             </Modal>
 
             <Table
