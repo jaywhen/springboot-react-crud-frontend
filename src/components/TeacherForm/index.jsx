@@ -38,7 +38,6 @@ export default function TeacherForm(props) {
             "gender": values.gender[0],
             "avatar": avatar,
         }
-        console.log(data)
         props.putData(data)
     }
 

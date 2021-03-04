@@ -4,8 +4,14 @@ import axios from "axios";
 import "./teacher-list.css";
 import TeacherForm from '../TeacherForm';
 
-// http://images.nowcoder.com/head/19m.png avatar url
 export default function TeacherList() {
+    // utils
+    const delFromArrayByItemElm = (arr, id) => {
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i].id === id) return i;
+        }
+    }
+
     // define dataSource
     const [dataSource, setDataSource] = useState([])
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -16,11 +22,12 @@ export default function TeacherList() {
 
     // CRUD -> D
     const handleDelete = (index) => {
-        console.log(index)
         axios.delete('http://localhost:8080/teacher/deleteById/' + index.id)
              .then((rsp) => {
                  let tmpData = [...dataSource];
-                 tmpData.splice(index.id, 1);
+                 let i = delFromArrayByItemElm(tmpData ,index.id);
+                 tmpData.splice(i, 1);
+                 console.log(tmpData)
                  setDataSource(tmpData)
              })
              .catch((error) => {
@@ -79,19 +86,18 @@ export default function TeacherList() {
 
     // 从子组件中获取 values
     const putData = (values) => {
-        // 从子组件中获取 values
+        // 从子组件中获取 values 但直接加入list 未添加 id 故出bug
         console.log(values)
         axios.post('http://localhost:8080/teacher/save/', values)
              .then((rsp) => {
-                 console.log(rsp)
+                console.log(rsp.data)
+                let tmpData = [...dataSource];
+                tmpData.push(rsp.data);
+                setDataSource(tmpData)
              })
              .catch((error) => {
-                 console.log(error)
+                console.log(error)
              })
-        let tmpData = [...dataSource];
-        tmpData.push(values);
-        setDataSource(tmpData)
-        console.log("add" + tmpData)
     }
 
     useEffect(() => {
