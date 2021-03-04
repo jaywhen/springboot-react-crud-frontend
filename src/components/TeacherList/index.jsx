@@ -25,10 +25,11 @@ export default function TeacherList() {
     }
 
     // define dataSource && some states
-    const [dataSource, setDataSource] = useState([])
-    const [updVal, setUpdVal] = useState([])
-    const [isAddModalVisible, setIsAddModalVisible] = useState(false)
-    const [isUpdModalVisible, setIsUpdModalVisible] = useState(false)
+    const [dataSource, setDataSource] = useState([]);
+    const [updVal, setUpdVal] = useState([]);
+    const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+    const [isUpdModalVisible, setIsUpdModalVisible] = useState(false);
+    const [searchText, setSearchText] = useState("");
 
     // index data
     useEffect(() => {
@@ -61,10 +62,9 @@ export default function TeacherList() {
     const handleAdd = (value) => {
         axios.post('http://localhost:8080/teacher/save/', value)
              .then((rsp) => {
-                console.log(rsp.data)
                 let tmpData = [...dataSource];
                 tmpData.push(rsp.data);
-                setDataSource(tmpData)
+                setDataSource(tmpData);
              })
              .catch((error) => {
                 console.log(error)
@@ -93,9 +93,11 @@ export default function TeacherList() {
     }
 
     // CRUD -> D
-    const onSearch = () => {
+    const onSearch = e => {
 
+        setSearchText(e.target.value)
     }
+
 
     // table header
     const columns = [
@@ -163,9 +165,10 @@ export default function TeacherList() {
                 <Search 
                     style={{ marginLeft: 30 }} 
                     placeholder="input search text" 
-                    onSearch={onSearch} 
+                    onChange={onSearch}
+                    onPressEnter={onSearch}
                     enterButton
-                    
+                    value={searchText}
                      />
             </div>
             
