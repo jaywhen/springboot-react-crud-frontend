@@ -14,14 +14,25 @@ export default function TeacherList() {
         }
     }
 
+    /**
+     * 
+     * @param {Array} arr 待更新的数组
+     * @param {Object} item arr 数组中需要更新的项
+     * @returns {Array} newArr 一个新的已被更新的数组
+     */ 
     const updArrayByItem = (arr, item) => {
-        for(let i = 0; i < arr.length; i++) {
-            if(arr[i].id == item.id) {
-                console.log("修改了");
-                arr[i] = item;
-            }
-        }
-        return arr;
+        // for(let i = 0; i < arr.length; i++) {
+        //     if(arr[i].id == item.id) {
+        //         console.log("修改了");
+        //         arr[i] = item;
+        //     }
+        // }
+        // 使用高阶函数而非 for 来做 "不可变"
+        let newArr = arr.map((arrItem) => {
+            if(arrItem.id == item.id) { return item; }
+            else { return arrItem; }
+        })
+        return newArr;
     }
 
     // define dataSource && some states
@@ -97,7 +108,6 @@ export default function TeacherList() {
 
         setSearchText(e.target.value)
     }
-
 
     // table header
     const columns = [
