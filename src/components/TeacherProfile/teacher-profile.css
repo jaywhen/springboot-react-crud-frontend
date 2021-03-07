@@ -1,17 +1,20 @@
-.teacher-list {
+.outer-wrapper {
     width: 750px;
     box-shadow: 0px 2px 3px rgb(199, 199, 199);
     padding: 10px;
     margin: 10px 0px;
 }
 
-.add-search-container {
+.inner-contianer {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
 }
 
-.del-update-container {
-    display: flex;
-    justify-content: space-between;
+.teacher-avatar {
+    margin: 10px 5px;
+} 
+
+
+.teacher-descriptions {
+    margin: 10px 20px;
 }

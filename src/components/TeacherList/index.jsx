@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Button, Avatar, Popconfirm, Modal, Input } from "antd";
+import { Table, Button, Avatar, Popconfirm, Modal, Select } from "antd";
 import axios from "axios";
 import "./teacher-list.css";
 import TeacherForm from '../TeacherForm';
 
-const Search = Input.Search;
+const {Option} = Select;
 
-export default function TeacherList() {
+export default function TeacherList(props) {
+    // define dataSource && some states
+    const [dataSource, setDataSource] = useState([]);
+    const [updVal, setUpdVal] = useState([]);
+    const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+    const [isUpdModalVisible, setIsUpdModalVisible] = useState(false);
+    const [searchText, setSearchText] = useState(undefined);
+    const [searchData, setSearchData] = useState([]);
+
+    // const options = searchData.map(d => <Option key={d.id}>{d.name}</Option>);
+    // const [options, setOptions] = useState([]);
+
     // utils
     const delFromArrayByItemElm = (arr, id) => {
         for(let i = 0; i < arr.length; i++) {
@@ -14,12 +25,6 @@ export default function TeacherList() {
         }
     }
 
-    /**
-     * 
-     * @param {Array} arr 待更新的数组
-     * @param {Object} item arr 数组中需要更新的项
-     * @returns {Array} newArr 一个新的已被更新的数组
-     */ 
     const updArrayByItem = (arr, item) => {
         // for(let i = 0; i < arr.length; i++) {
         //     if(arr[i].id == item.id) {
@@ -31,28 +36,43 @@ export default function TeacherList() {
         let newArr = arr.map((arrItem) => {
             if(arrItem.id == item.id) { return item; }
             else { return arrItem; }
-        })
+        });
         return newArr;
     }
 
-    // define dataSource && some states
-    const [dataSource, setDataSource] = useState([]);
-    const [updVal, setUpdVal] = useState([]);
-    const [isAddModalVisible, setIsAddModalVisible] = useState(false);
-    const [isUpdModalVisible, setIsUpdModalVisible] = useState(false);
-    const [searchText, setSearchText] = useState("");
+    /**
+     * Query by name
+     * @param {string} key 
+     * @param {Array} arr
+     */
+    const fuzzyQuery = (arr, key) => {
+        let fuzzyArr = [];
+        arr.forEach(element => {
+            if(element.name.indexOf(key) >= 0) {
+                fuzzyArr.push(element);
+            }
+        });
+        return fuzzyArr;
+    }
+
+    /**
+     * 
+     * @param {Array} arr 待更新的数组
+     * @param {Object} item arr 数组中需要更新的项
+     * @returns {Array} newArr 一个新的已被更新的数组
+     */ 
+    
 
     // index data
     useEffect(() => {
-        axios.get('http://localhost:8080/teacher/findAll')
+        axios.get("http://localhost:8080/teacher/findAll")
              .then((rsp) => {
                  setDataSource(rsp.data);
              })
              .catch((error) => {
                  console.log(error)
              })
-    }, [])
-
+    }, []);
 
     // CRUD -> D
     const handleDelete = (index) => {
@@ -103,10 +123,19 @@ export default function TeacherList() {
         setUpdVal(index)
     }
 
-    // CRUD -> D
-    const onSearch = e => {
+    // CRUD -> R
+    const onSearch = value => {
+        if(value) {
+            setSearchText(value);
+            let tmpData = fuzzyQuery(dataSource, value);
+            setSearchData(tmpData);
+        }        
+    }
 
-        setSearchText(e.target.value)
+    const onClickSearchItem = value => {
+        let path = "/profile/" + value;
+        props.history.push(path);
+        setSearchData([]);
     }
 
     // table header
@@ -172,14 +201,22 @@ export default function TeacherList() {
                     >
                     Add a row
                 </Button>
-                <Search 
-                    style={{ marginLeft: 30 }} 
+                <Select
+                    style={{ width: 200 }}
                     placeholder="input search text" 
-                    onChange={onSearch}
-                    onPressEnter={onSearch}
-                    enterButton
-                    value={searchText}
-                     />
+                    showSearch
+                    showArrow={false}
+                    filterOption={false}
+                    notFoundContent="这里嘛也没有~🙄"
+                    value = {searchText}
+                    onSearch={onSearch}
+                    onChange={onClickSearchItem}
+                >
+                    { searchData.map(d => (
+                        <Option key={d.id}>{d.name}</Option>
+                    )) 
+                    }
+                </Select>
             </div>
             
             <Modal 
