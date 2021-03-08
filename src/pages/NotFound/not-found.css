@@ -1,0 +1,7 @@
+.not-found-page {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    box-shadow: 0px 2px 3px rgb(199, 199, 199);
+}

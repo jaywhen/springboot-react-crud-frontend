@@ -1,6 +1,7 @@
 import Main from "./pages/Main";
 import Profile from "./pages/Profile";
-import { Switch, Route } from "react-router-dom";
+import NotFound from "./pages/NotFound";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "antd/dist/antd.css";
 import './App.css';
 
@@ -9,6 +10,7 @@ function App() {
     <Switch>
       <Route path="/" exact component={Main} />
       <Route path="/profile/:id" component={Profile} />
+      <Route path="/*" component={NotFound} />
     </Switch>
   );
 }
