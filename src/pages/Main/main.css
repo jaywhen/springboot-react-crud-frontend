@@ -1,5 +1,6 @@
-.main-page {
-    margin: 10px 0;
+.main-page-wrapper {
     display: flex;
     justify-content: center;
+    height: 100vh;
+    background-color: rgb(216, 216, 231);
 }

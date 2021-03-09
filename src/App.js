@@ -3,7 +3,6 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "antd/dist/antd.css";
-import './App.css';
 
 function App() {
   return (

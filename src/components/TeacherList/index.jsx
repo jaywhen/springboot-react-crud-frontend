@@ -25,14 +25,13 @@ export default function TeacherList(props) {
         }
     }
 
+    /**
+     * 
+     * @param {Array} arr 
+     * @param {Object} item 
+     * @returns 
+     */
     const updArrayByItem = (arr, item) => {
-        // for(let i = 0; i < arr.length; i++) {
-        //     if(arr[i].id == item.id) {
-        //         console.log("修改了");
-        //         arr[i] = item;
-        //     }
-        // }
-        // 使用高阶函数而非 for 来做 "不可变"
         let newArr = arr.map((arrItem) => {
             if(arrItem.id == item.id) { return item; }
             else { return arrItem; }
@@ -62,7 +61,6 @@ export default function TeacherList(props) {
      * @returns {Array} newArr 一个新的已被更新的数组
      */ 
     
-
     // index data
     useEffect(() => {
         axios.get("http://localhost:8080/teacher/findAll")
@@ -247,6 +245,7 @@ export default function TeacherList(props) {
                     return record.id
                 }}
                 dataSource={dataSource}
+                scroll={{ y: "470px" }}
             />
         </div>
     )

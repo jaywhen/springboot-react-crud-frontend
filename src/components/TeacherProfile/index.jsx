@@ -29,7 +29,7 @@ export default function TeacherProfile(props) {
                     <Image className="teacher-avatar" src={ teacher.avatar } alt={ teacher.name } width={180} />
                 </div>
                 <div>
-                    <Descriptions className="teacher-descriptions" title={ teacher.name + "'s " + "Profile" }>
+                    <Descriptions className="teacher-descriptions" title={ teacher.name + " 's Profile" }>
                         <DescriptionsItem label="Name">{ teacher.name }</DescriptionsItem>
                         <DescriptionsItem label="Gender">{ teacher.gender }</DescriptionsItem>
                         <DescriptionsItem label="Tel">{ teacher.tel }</DescriptionsItem>

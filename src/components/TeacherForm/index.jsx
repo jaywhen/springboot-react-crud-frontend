@@ -12,7 +12,11 @@ export default function TeacherForm(props) {
         {
             label: "女",
             value: "女"
-        }
+        },
+        {
+            label: "外星人",
+            value: "外星人"
+        },
     ]
 
     const departmentOps = [
@@ -25,13 +29,30 @@ export default function TeacherForm(props) {
             value: "数学科学学院",
         },
         {
-            label: "某国家一流专业",
-            value: "某国家一流专业",
+            label: "历史与社会学院",
+            value: "历史与社会学院",
         },
         {
             label: "马克思主义学院",
             value: "马克思主义学院",
         }
+        ,
+        {
+            label: "化学学院",
+            value: "化学学院",
+        },
+        {
+            label: "文学院",
+            value: "文学院",
+        },
+        {
+            label: "外国语学院",
+            value: "外国语学院",
+        },
+        {
+            label: "物理与电子工程学院",
+            value: "物理与电子工程学院",
+        },
     ]
 
     const onFinish = (values) => {

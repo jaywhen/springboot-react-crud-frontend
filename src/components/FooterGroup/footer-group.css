@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500&display=swap');
+/* 1- 'Redressed', cursive; */
+/* 2- 'Cormorant Unicase', serif; */
+/* 3- 'Cormorant SC', serif; */
+.footer-wapper ul {
+    list-style: none;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.footer-wapper ul li {
+    display: inline;
+}
+
+.footer-wapper ul>li:not(:last-child)::after {
+    content: " 🎮 ";
+    white-space: pre;
+}
