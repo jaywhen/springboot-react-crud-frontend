@@ -16,7 +16,9 @@ export default function TeacherProfile(props) {
     useEffect(() => {
         axios.get("http://localhost:8080/teacher/findById/" + id)
              .then((rsp) => {
+                 console.log(rsp.data);
                  setTeacher(rsp.data);
+
              })
              .catch((error) => {
                  console.log(error);
@@ -34,6 +36,15 @@ export default function TeacherProfile(props) {
                         <DescriptionsItem label="Gender">{ teacher.gender }</DescriptionsItem>
                         <DescriptionsItem label="Tel">{ teacher.tel }</DescriptionsItem>
                         <DescriptionsItem label="Department">{ teacher.department }</DescriptionsItem>
+                        <DescriptionsItem label="Email">{ teacher.email }</DescriptionsItem>
+                        <DescriptionsItem label="Address">{ teacher.address }</DescriptionsItem>
+                        <DescriptionsItem label="Undergraduate">{ teacher.undergraduate }</DescriptionsItem>
+                        <DescriptionsItem label="Master">{ teacher.master }</DescriptionsItem>
+                        <DescriptionsItem label="PhD">{ teacher.phd }</DescriptionsItem>
+                        <DescriptionsItem label="Github">{ teacher.github }</DescriptionsItem>
+                        <DescriptionsItem label="Bio">{ teacher.bio }</DescriptionsItem>
+                        <DescriptionsItem label="Title">{ teacher.title }</DescriptionsItem>
+                        <DescriptionsItem label="Project">{ teacher.project }</DescriptionsItem>
                     </Descriptions>
                 </div>
             </div>

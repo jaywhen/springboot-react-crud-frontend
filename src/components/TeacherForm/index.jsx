@@ -113,12 +113,74 @@ export default function TeacherForm(props) {
                 >
                     <Cascader options={genderOps} style={{ width: 80 }} />
                 </FormItem>
+                <FormItem
+                    className="email"
+                    label="Email"
+                    name="email"
+                >
+                    <Input placeholder="Email" />
+                </FormItem>
+                <FormItem
+                    className="address"
+                    label="Address"
+                    name="address"
+                >
+                    <Input placeholder="Address" />
+                </FormItem>
+                <FormItem
+                    className="undergraduate"
+                    label="Undergraduate"
+                    name="undergraduate"
+                >
+                    <Input placeholder="undergraduate" />
+                </FormItem>
+                <FormItem
+                    className="master"
+                    label="Master"
+                    name="master"
+                >
+                    <Input placeholder="master" />
+                </FormItem>
+                <FormItem
+                    className="phd"
+                    label="PhD"
+                    name="phd"
+                >
+                    <Input placeholder="PhD" />
+                </FormItem>
+                <FormItem
+                    className="github"
+                    label="Github"
+                    name="github"
+                >
+                    <Input placeholder="github" />
+                </FormItem>
+                <FormItem
+                    className="bio"
+                    label="Bio"
+                    name="bio"
+                >
+                    <Input placeholder="Bio" />
+                </FormItem>
+                <FormItem
+                    className="title"
+                    label="Title"
+                    name="title"
+                >
+                    <Input placeholder="title" />
+                </FormItem>
+                <FormItem
+                    className="project"
+                    label="Project"
+                    name="project"
+                >
+                    <Input placeholder="project" />
+                </FormItem>
                 <FormItem>
                     <Button htmlType="submit" type="primary">
                         Submit
                     </Button>
-                </FormItem>
-                
+                </FormItem>                
             </Form>
         </div>
     )
