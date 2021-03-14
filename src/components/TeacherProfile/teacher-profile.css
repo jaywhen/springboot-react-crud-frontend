@@ -14,7 +14,34 @@
     margin: 10px 5px;
 } 
 
+.links {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.links a {
+    color: rgb(46, 46, 46);
+    text-decoration: none;
+    font-size: 16px;
+}
 
 .teacher-descriptions {
     margin: 10px 20px;
+    font-weight: 600;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.teacher-name {
+    font-size: 22px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.teacher-tel {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 16px;
 }

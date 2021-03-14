@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Cascader, Button } from "antd";
+import { Form, Input, Cascader, Button, Col, Row } from "antd";
 const FormItem = Form.Item;
 
 
@@ -75,112 +75,182 @@ export default function TeacherForm(props) {
         }
     }
 
+    const layout = {
+        labelCol: { span: 8 },
+        wrapperCol: { span: 16 },
+    };
+
+    const gutter = {
+        xs: 8,
+        sm: 16,
+        md: 24,
+        lg: 32,
+    }
+
     return (
         <div>
             <Form
+                {...layout}
                 initialValues={props.values} 
-                style={{ width: 300 }} 
+                style={{ width: 650 }} 
                 onFinish={ onFinish }>
-                <FormItem
-                    className="name"
-                    label="Name"
-                    name="name"
-                    rules={[{ required: true, message: 'Please input your name!' }]}
-                >
-                    <Input placeholder="name" />
-                </FormItem>
-                <FormItem
-                    className="tel"
-                    label="Tel"
-                    name="tel"
-                    rules={[{ required: true, message: 'Please input your Tel!' }]}
-                >
-                    <Input placeholder="Tel" />
-                </FormItem>
-                <FormItem
-                    className="department"
-                    label="Department"
-                    name="department"
-                    rules={[{ required: true, message: 'Please choose your department!' }]}
-                >
-                    <Cascader options={departmentOps} />
-                </FormItem>
-                <FormItem
-                    className="gender"
-                    label="Gender"
-                    name="gender"
-                    rules={[{ required: true, message: 'Please choose your gender!' }]}
-                >
-                    <Cascader options={genderOps} style={{ width: 80 }} />
-                </FormItem>
-                <FormItem
-                    className="email"
-                    label="Email"
-                    name="email"
-                >
-                    <Input placeholder="Email" />
-                </FormItem>
-                <FormItem
-                    className="address"
-                    label="Address"
-                    name="address"
-                >
-                    <Input placeholder="Address" />
-                </FormItem>
-                <FormItem
-                    className="undergraduate"
-                    label="Undergraduate"
-                    name="undergraduate"
-                >
-                    <Input placeholder="undergraduate" />
-                </FormItem>
-                <FormItem
-                    className="master"
-                    label="Master"
-                    name="master"
-                >
-                    <Input placeholder="master" />
-                </FormItem>
-                <FormItem
-                    className="phd"
-                    label="PhD"
-                    name="phd"
-                >
-                    <Input placeholder="PhD" />
-                </FormItem>
-                <FormItem
-                    className="github"
-                    label="Github"
-                    name="github"
-                >
-                    <Input placeholder="github" />
-                </FormItem>
-                <FormItem
-                    className="bio"
-                    label="Bio"
-                    name="bio"
-                >
-                    <Input placeholder="Bio" />
-                </FormItem>
-                <FormItem
-                    className="title"
-                    label="Title"
-                    name="title"
-                >
-                    <Input placeholder="title" />
-                </FormItem>
-                <FormItem
-                    className="project"
-                    label="Project"
-                    name="project"
-                >
-                    <Input placeholder="project" />
-                </FormItem>
-                <FormItem>
-                    <Button htmlType="submit" type="primary">
-                        Submit
-                    </Button>
-                </FormItem>                
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="name"
+                                label="Name"
+                                name="name"
+                                rules={[{ required: true, message: 'Please input your name!' }]}
+                            >
+                                <Input placeholder="name" />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="tel"
+                                label="Tel"
+                                name="tel"
+                                rules={[{ required: true, message: 'Please input your Tel!' }]}
+                            >
+                                <Input placeholder="Tel" />
+                            </FormItem>
+                        </Col>
+                    </Row>
+
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="department"
+                                label="Department"
+                                name="department"
+                                rules={[{ required: true, message: 'Please choose your department!' }]}
+                            >
+                                <Cascader options={departmentOps} />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="gender"
+                                label="Gender"
+                                name="gender"
+                                rules={[{ required: true, message: 'Please choose your gender!' }]}
+                            >
+                                <Cascader options={genderOps} style={{ width: 80 }} />
+                            </FormItem>
+                        </Col>
+                    </Row>
+
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="email"
+                                label="Email"
+                                name="email"
+                            >
+                                <Input placeholder="Email" />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="address"
+                                label="Address"
+                                name="address"
+                            >
+                                <Input placeholder="Address" />
+                            </FormItem>
+                        </Col>
+                    </Row>
+
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="undergraduate"
+                                label="Undergraduate"
+                                name="undergraduate"
+                            >
+                                <Input placeholder="undergraduate" />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="master"
+                                label="Master"
+                                name="master"
+                            >
+                                <Input placeholder="master" />
+                            </FormItem>
+                        </Col>
+                    </Row>
+
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="phd"
+                                label="PhD"
+                                name="phd"
+                            >
+                                <Input placeholder="PhD" />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="github"
+                                label="Github"
+                                name="github"
+                            >
+                                <Input placeholder="github" />
+                            </FormItem>
+                        </Col>
+                    </Row>
+
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="bio"
+                                label="Bio"
+                                name="bio"
+                            >
+                                <Input placeholder="Bio" />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="title"
+                                label="Title"
+                                name="title"
+                            >
+                                <Input placeholder="title" />
+                            </FormItem>
+                        </Col>
+                        
+                    </Row>
+
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="project"
+                                label="Project"
+                                name="project"
+                            >
+                                <Input placeholder="project" />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="blog"
+                                label="Blog"
+                                name="blog"
+                            >
+                                <Input placeholder="blog" />
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    
+                    <FormItem>
+                        <Button style={{ width: "650px" }} htmlType="submit" type="primary">
+                            Submit
+                        </Button>
+                    </FormItem> 
             </Form>
         </div>
     )

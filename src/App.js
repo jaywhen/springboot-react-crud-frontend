@@ -1,7 +1,7 @@
 import Main from "./pages/Main";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "antd/dist/antd.css";
 
 function App() {

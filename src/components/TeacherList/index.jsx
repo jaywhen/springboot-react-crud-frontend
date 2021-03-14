@@ -15,9 +15,6 @@ export default function TeacherList(props) {
     const [searchText, setSearchText] = useState(undefined);
     const [searchData, setSearchData] = useState([]);
 
-    // const options = searchData.map(d => <Option key={d.id}>{d.name}</Option>);
-    // const [options, setOptions] = useState([]);
-
     // utils
     const delFromArrayByItemElm = (arr, id) => {
         for(let i = 0; i < arr.length; i++) {
@@ -33,7 +30,7 @@ export default function TeacherList(props) {
      */
     const updArrayByItem = (arr, item) => {
         let newArr = arr.map((arrItem) => {
-            if(arrItem.id == item.id) { return item; }
+            if(arrItem.id === item.id) { return item; }
             else { return arrItem; }
         });
         return newArr;
@@ -106,7 +103,6 @@ export default function TeacherList(props) {
              .then((rsp) => {
                  // 替换原来 dataSource 中的item
                  let tmpData = updArrayByItem([...dataSource], value);
-                 console.log(tmpData)
                  setDataSource(tmpData);
              })
              .catch((error) => {
@@ -218,19 +214,19 @@ export default function TeacherList(props) {
             </div>
             
             <Modal 
-                destroyOnClose={true}
-                width={350} 
+                style={{ display: "flex", justifyContent: "center" }}
+                destroyOnClose={true} 
                 title="Add a teacher" 
                 visible={isAddModalVisible} 
                 footer={[]}
                 onCancel={() => setIsAddModalVisible(false)}
             >
-                <TeacherForm handleAdd={handleAdd} onAddSubmit={onAddSubmit} />
+                <TeacherForm  handleAdd={handleAdd} onAddSubmit={onAddSubmit} />
             </Modal>
 
             <Modal 
+                style={{ display: "flex", justifyContent: "center" }}
                 destroyOnClose={true}
-                width={350} 
                 title="Update a teacher" 
                 visible={isUpdModalVisible} 
                 footer={[]}

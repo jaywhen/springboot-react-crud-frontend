@@ -8,7 +8,7 @@ export default function NotFound() {
             <Result 
                 status="404"
                 title="404"
-                subTitle="你好像已经到达了世界的尽头"
+                subTitle="你已经到达了世界的尽头 ..."
                 extra={ <Button type="primary"><Link to="/">回到首页</Link></Button> }
             />
         </div>
