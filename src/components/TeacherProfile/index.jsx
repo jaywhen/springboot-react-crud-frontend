@@ -1,7 +1,3 @@
-/**
- * React Hook useEffect has a missing dependency: 'id'. Either include it or remove the dependency array
- * 老是报这警告 先关提示 等 code review 的时候再处理
- */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
