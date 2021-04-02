@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Cascader, Button, Col, Row } from "antd";
+import { Form, Input, Cascader, Button, Col, Row, Switch } from "antd";
 const FormItem = Form.Item;
 
 
@@ -110,7 +110,21 @@ export default function TeacherForm(props) {
                                 className="tel"
                                 label="Tel"
                                 name="tel"
-                                rules={[{ required: true, message: 'Please input your Tel!' }]}
+                                rules={
+                                    [
+                                        {
+                                            required: true,
+                                            max: 11,
+                                            whitespace: true,
+                                            message: '请输入11位数电话号码'
+                                        },
+                                        {
+                                            required: true,
+                                            pattern: /^[0-9]+$/,
+                                            message: '请输入数字'
+                                        }
+                                    ]
+                                }
                             >
                                 <Input placeholder="Tel" />
                             </FormItem>
@@ -146,6 +160,16 @@ export default function TeacherForm(props) {
                                 className="email"
                                 label="Email"
                                 name="email"
+                                rules={
+                                    [
+                                        {
+                                            required: true,
+                                            whitespace: true,
+                                            pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/,
+                                            message: "请输入正确的 email 格式",
+                                        }
+                                    ]
+                                }
                             >
                                 <Input placeholder="Email" />
                             </FormItem>
@@ -155,6 +179,12 @@ export default function TeacherForm(props) {
                                 className="address"
                                 label="Address"
                                 name="address"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your address",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="Address" />
                             </FormItem>
@@ -167,6 +197,12 @@ export default function TeacherForm(props) {
                                 className="undergraduate"
                                 label="Undergraduate"
                                 name="undergraduate"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your undergraduate",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="undergraduate" />
                             </FormItem>
@@ -176,6 +212,12 @@ export default function TeacherForm(props) {
                                 className="master"
                                 label="Master"
                                 name="master"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your master",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="master" />
                             </FormItem>
@@ -188,6 +230,12 @@ export default function TeacherForm(props) {
                                 className="phd"
                                 label="PhD"
                                 name="phd"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your PhD",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="PhD" />
                             </FormItem>
@@ -197,6 +245,12 @@ export default function TeacherForm(props) {
                                 className="github"
                                 label="Github"
                                 name="github"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your github",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="github" />
                             </FormItem>
@@ -209,6 +263,12 @@ export default function TeacherForm(props) {
                                 className="bio"
                                 label="Bio"
                                 name="bio"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your bio",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="Bio" />
                             </FormItem>
@@ -218,6 +278,12 @@ export default function TeacherForm(props) {
                                 className="title"
                                 label="Title"
                                 name="title"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your title",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="title" />
                             </FormItem>
@@ -231,6 +297,12 @@ export default function TeacherForm(props) {
                                 className="project"
                                 label="Project"
                                 name="project"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your project",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="project" />
                             </FormItem>
@@ -240,12 +312,40 @@ export default function TeacherForm(props) {
                                 className="blog"
                                 label="Blog"
                                 name="blog"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "please enter your blog",
+                                    }
+                                ]}
                             >
                                 <Input placeholder="blog" />
                             </FormItem>
                         </Col>
                     </Row>
                     
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="IEEEFellow"
+                                label="IEEE Fellow"
+                                name="IEEEFellow"
+                                rules={[{ required: true, message: 'Please input your name!' }]}
+                            >
+                                <Switch checkedChildren="是" unCheckedChildren="否" />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="tel"
+                                label="Tel"
+                                name="tel"
+                            >
+                                <Input.TextArea placeholder="Tel" />
+                            </FormItem>
+                        </Col>
+                    </Row>
+
                     <FormItem>
                         <Button style={{ width: "650px" }} htmlType="submit" type="primary">
                             Submit
