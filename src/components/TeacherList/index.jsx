@@ -3,6 +3,8 @@ import { Table, Button, Avatar, Popconfirm, Modal, Select } from "antd";
 import axios from "axios";
 import "./teacher-list.css";
 import TeacherForm from '../TeacherForm';
+import { Link } from 'react-router-dom';
+import { updDataValidate } from '../../Util';
 
 const {Option} = Select;
 
@@ -76,7 +78,7 @@ export default function TeacherList(props) {
                  let tmpData = [...dataSource];
                  let i = delFromArrayByItemElm(tmpData ,index.id);
                  tmpData.splice(i, 1);
-                 console.log(tmpData)
+                //  console.log(tmpData)
                  setDataSource(tmpData)
              })
              .catch((error) => {
@@ -89,7 +91,8 @@ export default function TeacherList(props) {
         axios.post('http://localhost:8080/teacher/save/', value)
              .then((rsp) => {
                 let tmpData = [...dataSource];
-                tmpData.push(rsp.data);
+                tmpData.push(rsp.data.userData);
+                console.log(rsp.data.userData);
                 setDataSource(tmpData);
              })
              .catch((error) => {
@@ -110,11 +113,15 @@ export default function TeacherList(props) {
              })
     }
 
-    const onUpdClick = (index) => {
+    const onUpdClick = index => {
         // 处理特殊数据
-        index.department = [index.department]
-        setIsUpdModalVisible(true)
-        setUpdVal(index)
+        // index.department = [index.department]
+        // index.joinDate = moment(index.joinDate, 'YYYY/MM')
+        // index.gender = [index.gender];
+        let data = updDataValidate(index);
+        // console.log("index data: ",index);
+        setIsUpdModalVisible(true);
+        setUpdVal(data);
     }
 
     // CRUD -> R
@@ -139,7 +146,11 @@ export default function TeacherList(props) {
             dataIndex: 'avatar',
             key: 'avatar',
             render: (_,index) => {
-                return(<Avatar src={ index.avatar } />) 
+                return(
+                    <Link to={`/profile/${index.id}`}>
+                        <Avatar src={ index.avatar } />
+                    </Link>
+                ) 
             }
         },
         {

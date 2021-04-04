@@ -1,5 +1,6 @@
 import React from 'react'
-import { Form, Input, Cascader, Button, Col, Row, Switch } from "antd";
+import { Form, Input, Cascader, Button, Col, Row, Switch, DatePicker, Rate, Slider, Checkbox } from "antd";
+import { dataValidate } from '../../Util';
 const FormItem = Form.Item;
 
 
@@ -55,11 +56,13 @@ export default function TeacherForm(props) {
         },
     ]
 
+    const onSwitchChange = (checked) => {
+        console.log(checked);
+    }
+
     const onFinish = (values) => {
-        let data = values;
-        data["department"] = values.department[0];
-        data["gender"] = values.gender[0];
         // 如果没有表单数据传过来 => add
+        let data = dataValidate(values);
         if(!props.values) {
             let avatar = "http://images.nowcoder.com/head/"+ Math.floor(Math.random() * 101) + "m.png";
             data["avatar"] = avatar;
@@ -70,7 +73,8 @@ export default function TeacherForm(props) {
             // 将数据返回给父组件
             data["id"] = props.values.id;
             data["avatar"] = props.values.avatar;
-            props.handleUpd(data);
+            console.log(data);
+            props.handleUpd(values);
             props.onUpdSubmit();
         }
     }
@@ -102,7 +106,7 @@ export default function TeacherForm(props) {
                                 name="name"
                                 rules={[{ required: true, message: 'Please input your name!' }]}
                             >
-                                <Input placeholder="name" />
+                                <Input placeholder="name" allowClear />
                             </FormItem>
                         </Col>
                         <Col span={12}>
@@ -126,7 +130,7 @@ export default function TeacherForm(props) {
                                     ]
                                 }
                             >
-                                <Input placeholder="Tel" />
+                                <Input placeholder="Tel" allowClear />
                             </FormItem>
                         </Col>
                     </Row>
@@ -149,7 +153,7 @@ export default function TeacherForm(props) {
                                 name="gender"
                                 rules={[{ required: true, message: 'Please choose your gender!' }]}
                             >
-                                <Cascader options={genderOps} style={{ width: 80 }} />
+                                <Cascader options={genderOps} />
                             </FormItem>
                         </Col>
                     </Row>
@@ -171,7 +175,7 @@ export default function TeacherForm(props) {
                                     ]
                                 }
                             >
-                                <Input placeholder="Email" />
+                                <Input placeholder="Email" allowClear />
                             </FormItem>
                         </Col>
                         <Col span={12}>
@@ -186,7 +190,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="Address" />
+                                <Input placeholder="Address" allowClear />
                             </FormItem>
                         </Col>
                     </Row>
@@ -195,7 +199,7 @@ export default function TeacherForm(props) {
                         <Col span={12}>
                             <FormItem
                                 className="undergraduate"
-                                label="Undergraduate"
+                                label="UGRD"
                                 name="undergraduate"
                                 rules={[
                                     {
@@ -204,7 +208,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="undergraduate" />
+                                <Input placeholder="undergraduate" allowClear />
                             </FormItem>
                         </Col>
                         <Col span={12}>
@@ -219,7 +223,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="master" />
+                                <Input placeholder="master" allowClear />
                             </FormItem>
                         </Col>
                     </Row>
@@ -237,7 +241,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="PhD" />
+                                <Input placeholder="PhD" allowClear />
                             </FormItem>
                         </Col>
                         <Col span={12}>
@@ -252,7 +256,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="github" />
+                                <Input placeholder="github" allowClear />
                             </FormItem>
                         </Col>
                     </Row>
@@ -270,7 +274,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="Bio" />
+                                <Input placeholder="Bio" allowClear />
                             </FormItem>
                         </Col>
                         <Col span={12}>
@@ -285,7 +289,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="title" />
+                                <Input placeholder="title" allowClear />
                             </FormItem>
                         </Col>
                         
@@ -304,7 +308,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="project" />
+                                <Input placeholder="project" allowClear />
                             </FormItem>
                         </Col>
                         <Col span={12}>
@@ -319,7 +323,7 @@ export default function TeacherForm(props) {
                                     }
                                 ]}
                             >
-                                <Input placeholder="blog" />
+                                <Input placeholder="blog" allowClear />
                             </FormItem>
                         </Col>
                     </Row>
@@ -329,23 +333,93 @@ export default function TeacherForm(props) {
                             <FormItem
                                 className="IEEEFellow"
                                 label="IEEE Fellow"
-                                name="IEEEFellow"
-                                rules={[{ required: true, message: 'Please input your name!' }]}
+                                name="ieee"
+                                valuePropName="checked"
                             >
-                                <Switch checkedChildren="是" unCheckedChildren="否" />
+                                <Switch checkedChildren="是" 
+                                    unCheckedChildren="否"
+                                    onChange={onSwitchChange}
+                                     />
                             </FormItem>
                         </Col>
                         <Col span={12}>
                             <FormItem
-                                className="tel"
-                                label="Tel"
-                                name="tel"
+                                className="desc"
+                                label="Description"
+                                name="description"
                             >
-                                <Input.TextArea placeholder="Tel" />
+                                <Input.TextArea allowClear />
                             </FormItem>
                         </Col>
                     </Row>
 
+                    <Row gutter={gutter}>
+                        <Col span={12}>
+                            <FormItem
+                                className="joinDate"
+                                label="Join Date"
+                                name="joinDate"
+                                rules={[{ required: true, message: 'Please choose the date!' }]}
+                            >
+                                <DatePicker picker="month" format="YYYY/MM" />
+                            </FormItem>
+                            <FormItem
+                                className="rate"
+                                label="Rate"
+                                name="rate"
+                            >
+                                <Rate />
+                            </FormItem>
+                            <FormItem
+                                className="age"
+                                label="Age"
+                                name="age"
+                                rules={[{ required: true, message: 'Please "slide" your age!' }]}
+                            >
+                                <Slider
+                                    min={18}
+                                    max={150}
+                                />
+                            </FormItem>
+                        </Col>
+                        <Col span={12}>
+                            <FormItem
+                                className="stack"
+                                label="Stack"
+                                name="stack"
+                                rules={[{ required: true, message: 'Please choose your stack!' }]}
+                            >
+                                <Checkbox.Group>
+                                        <Row>
+                                            <Checkbox value="web dev" style={{ lineHeight: '32px' }}>
+                                                web dev
+                                            </Checkbox>
+                                        </Row>
+                                        <Row>
+                                            <Checkbox value="Android native" style={{ lineHeight: '32px' }}>
+                                                Android native
+                                            </Checkbox>
+                                        </Row>
+                                        <Row>
+                                            <Checkbox value="iOS native" style={{ lineHeight: '32px' }}>
+                                                iOS native
+                                            </Checkbox>
+                                        </Row>
+                                        <Row>
+                                            <Checkbox value="Cross platform dev" style={{ lineHeight: '32px' }}>
+                                                Cross platform dev
+                                            </Checkbox>
+                                        </Row>
+                                        <Row>
+                                            <Checkbox value="AI" style={{ lineHeight: '32px' }}>
+                                                AI
+                                            </Checkbox>
+                                        </Row>
+                                </Checkbox.Group>
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    
                     <FormItem>
                         <Button style={{ width: "650px" }} htmlType="submit" type="primary">
                             Submit
