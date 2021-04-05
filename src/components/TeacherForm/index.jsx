@@ -104,7 +104,10 @@ export default function TeacherForm(props) {
                                 className="name"
                                 label="Name"
                                 name="name"
-                                rules={[{ required: true, message: 'Please input your name!' }]}
+                                rules={[
+                                    { required: true, message: 'Please input your name!' },
+                                    { required: true, max: 20, whitespace: true, message: '姓名不能超过20个字符长度！'}
+                                ]}
                             >
                                 <Input placeholder="name" allowClear />
                             </FormItem>
@@ -118,7 +121,7 @@ export default function TeacherForm(props) {
                                     [
                                         {
                                             required: true,
-                                            max: 11,
+                                            min: 11,
                                             whitespace: true,
                                             message: '请输入11位数电话号码'
                                         },
